@@ -2,18 +2,18 @@
 https://www.tutorialesprogramacionya.com/sqlserverya/
 
 -- codigo --
-*** crear una tabla(create table -sp_table - sp_columns - drop table)
+-- *** 2 crear una tabla(create table -sp_table - sp_columns - drop table) ***
 
---creamos la tabla en primer lugar
+-- creamos la tabla en primer lugar
 create database db1;
 
---crear la primera tabla
+-- crear la primera tabla
 create table usuarios(
-nombre varchar(30),
-clave varchar(10)
+	nombre varchar(30),
+	clave varchar(10)
 );
 
---procedimiento almacenado(ya definido) que nos muestra detalladamente la tabla
+-- procedimiento almacenado(ya definido) que nos muestra detalladamente la tabla
 exec sp_columns usuarios;
 
 --borrar una tabla
@@ -36,23 +36,23 @@ drop table usuarios;
 
 exec sp_tables @table_owner='dbo';
 
--- ****** 3 Insertar y recuperar registros de una tabla (insert into - select)*****
+-- *** 3 Insertar y recuperar registros de una tabla (insert into - select) ***
 if OBJECT_ID('usuarios') is not null
 drop table usuarios;
 
 create table usuarios(
-nombre varchar(30),
-clave varchar(10)
+	nombre varchar(30),
+	clave varchar(10)
 );
 
---agregar un registro o fila
+-- agregar un registro o fila
 insert into usuarios(nombre, clave) values('Juan', '123456');
 insert into usuarios(nombre, clave) values('maria', '654321');
 insert into usuarios(nombre, clave) values('pedro', '111111');
 insert into usuarios(nombre, clave) values('Daniela', '2255');
 insert into usuarios(nombre, clave) values('Daniela', '2255');
 
---recuperar los registros
+-- recuperar los registros
 select * from usuarios;
 
 -- *** 4 tipos de datos basicos en sql server ***
@@ -60,19 +60,19 @@ select * from usuarios;
 -- integer = para guardar valores numericos(integer)
 -- float = valores numericos con punto por ejemplo precios(float)
 
---revisar si existe la tabla libros
+-- revisar si existe la tabla libros
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
-titulo varchar(80),
-autor varchar(40),
-editorial varchar(30),
-precio float,
-cantidad integer
+	titulo varchar(80),
+	autor varchar(40),
+	editorial varchar(30),
+	precio float,
+	cantidad integer
 );
 
---ver las columnas con un procedimiento almacenado
+-- ver las columnas con un procedimiento almacenado
 exec sp_columns libros;
 
 insert into libros(titulo, autor, editorial, precio, cantidad) values('El aleph' ,'Sorges', 'emece', 25.50, 200000);
@@ -84,13 +84,13 @@ select * from libros;
 -- *** 5 tipos de datos basicos SQL server - ejercicios ***
 -- ejercicio #1
 if OBJECT_ID('peliculas') is not null
-drop table peliculas;
+	drop table peliculas;
 
 create table peliculas(
-nombre varchar(50),
-actor varchar(50),
-duracion integer,
-cantidad integer
+	nombre varchar(50),
+	actor varchar(50),
+	duracion integer,
+	cantidad integer
 );
 
 exec sp_columns peliculas;
@@ -104,14 +104,14 @@ select * from peliculas;
 
 -- ejercicio #2
 if OBJECT_ID('empleados') is not null
-drop table empleados;
+	drop table empleados;
 
 create table empleados(
-nombre varchar(30),
-documento varchar(8),
-sexo varchar(1),
-domicilio varchar(40),
-sueldobasico float 
+	nombre varchar(30),
+	documento varchar(8),
+	sexo varchar(1),
+	domicilio varchar(40),
+	sueldobasico float 
 );
 
 exec sp_columns empleados;
@@ -133,6 +133,7 @@ select nombre, documento, sueldobasico from empleados;
 -- ***7 Recuperar algunos campos (select) - ejercicios ***
 -- ejercicio #1
 select * from peliculas;
+
 /* realizar 3 selects 
 nombre y actor
 titulo y duracion
@@ -141,7 +142,7 @@ select nombre, actor from peliculas;
 select actor, duracion from peliculas;
 select actor, cantidad from peliculas;
 
--- *** 8 recuperar algunos registros(where) (recuperar registros avace de condiciones)***
+-- *** 8 recuperar algunos registros(where) (recuperar registros a base de condiciones)***
 
 -- recuperar el usuario cuyo nombre es "Juan"
 select nombre from usuarios where nombre='Juan';
@@ -155,15 +156,15 @@ select nombre from usuarios where clave='111111';
 -- *** 9 Recuperar algunos registros (where) - ejercicios ***
 -- ejercicio #1 con la tabla agenda
 if OBJECT_ID('agenda') is not null
-drop table agenda;
+	drop table agenda;
 
 go 
 
 create table agenda(
-apellido varchar(30),
-nombre varchar(20),
-domicilio varchar(30),
-telefono varchar(11)
+	apellido varchar(30),
+	nombre varchar(20),
+	domicilio varchar(30),
+	telefono varchar(11)
 );
 
 exec sp_columns agenda;
@@ -183,12 +184,14 @@ select nombre,domicilio from agenda where apellido='lopez';
 select nombre from agenda where telefono='4545454';
 
 -- *** 10 operadores relacionales o de comparacion ***
-/* igual = =
-distinto <>
-mayor = >
-menor = <
-mayor o igual = >=
-menor o igual = <= */
+/* 
+- igual = =
+- distinto <>
+- mayor = >
+- menor = <
+- mayor o igual = >=
+- menor o igual = <= 
+*/
 
 select * from agenda where apellido<>'lopez';
 
@@ -199,11 +202,11 @@ if OBJECT_ID('articulos') is not null
 go 
 
 create table articulos(
-codigo integer,
-nombre varchar(20),
-descripcion varchar(30),
-precio float,
-cantidad integer
+	codigo integer,
+	nombre varchar(20),
+	descripcion varchar(30),
+	precio float,
+	cantidad integer
 );
 
 exec sp_columns articulos;
@@ -223,7 +226,7 @@ select codigo, nombre from articulos where cantidad < 30;
 select nombre, descripcion from articulos where precio<> 100;
 
 -- *** 12 Borrar registros (delete) ***
---borrar todo
+-- borrar todos los registros, siempre usar el where para evitar esto de no ser necesario
 delete from articulos;
 
 --borrar algunos registros
@@ -236,10 +239,10 @@ update articulos set descripcion='Epson C45' where descripcion='epson c45';
 
 --*** 17 Valores null (is null) ***
 create table libross(
-titulo varchar(20) not null,
-autor varchar(20) not null,
-editorial varchar(15) null,
-precio float
+	titulo varchar(20) not null,
+	autor varchar(20) not null,
+	editorial varchar(15) null,
+	precio float
 );
 
 insert into libross(titulo,autor,editorial,precio) values('ejemplo','desconocido',null, 101.01);
@@ -250,20 +253,20 @@ select * from libros;
 
 -- *** 18 Clave primaria  es un campo que identifica un solo registro, un valor que no se repite***
 create table clave(
-nombre varchar(30),
-clave varchar(30),
-primary key(nombre)-- por defecto tendra el not null
+	nombre varchar(30),
+	clave varchar(30),
+	primary key(nombre)-- por defecto tendra el not null
 );
 
 -- *** 19 Campo con atributo Identity, se generan valores secuenciales que se incrementan de uno en uno y no se repiten
 -- ya que no pueden haber mas de un campo identity
 
 create table identiti(
-codigo int identity, -- se definira como clave primaria, no permite valores nulos por defecto
-titulo varchar(20),
-autor varchar(30),
-editorial varchar(15),
-precio float
+	codigo int identity, -- se definira como clave primaria, no permite valores nulos por defecto
+	titulo varchar(20),
+	autor varchar(30),
+	editorial varchar(15),
+	precio float
 );
 
 insert into identiti(titulo,autor,editorial,precio) values('el aleph','borges','enece',23);
@@ -275,41 +278,40 @@ exec sp_columns identiti;
 -- *** 20 Otras características del atributo Identity ***
 -- le puedo dar un valor inicial y su paso de avence
 create table identiti2(
-codigo int identity(100,2), --iniciara en 100 e incrementara de 2 en 2
-titulo varchar(20),
-autor varchar(30),
-editorial varchar(15),
-precio float
+	codigo int identity(100,2), --iniciara en 100 e incrementara de 2 en 2
+	titulo varchar(20),
+	autor varchar(30),
+	editorial varchar(15),
+	precio float
 );
 
 -- *** 22   tipo de datos(texto)
 /*
-varchar(x)
-char(x) = para almacenar cadenas que no varian su longuitud
-text
-nvarchar(x) = n es por unicode(restringe al rango positivo omitiendo negativos)
-nchar(x)
-ntext
-
+- varchar(x)
+- char(x) = para almacenar cadenas que no varian su longuitud
+- text
+- nvarchar(x) = n es por unicode(restringe al rango positivo omitiendo negativos)
+- nchar(x)
+- ntext
 */
 
 -- *** 23 Tipo de dato (numérico) ***
 /*
-integer tiene los siguientes subtipos:
+- integer tiene los siguientes subtipos:
 	smallint
 	tinyint = para la edad de una persona
 	bigint 
 
-decimal o numeric = puede contener hasta 38 digitos decimal(4,2), redondea los decimales que no entren dentro de 
-la definicion
+- decimal o numeric = puede contener hasta 38 digitos decimal(4,2), redondea los decimales que no entren dentro de 
+  la definicion
 
 *** para almacenar valores numericos aproximados con decimales utilizamos
-float
-real
+- float
+- real
 
 *** para valores monetarios
-money = hasta 19 digitos
-smallmoney
+- money = hasta 19 digitos
+- smallmoney
 */
 
 -- *** 24 Tipo de dato (fecha y hora) ***
@@ -317,11 +319,11 @@ smallmoney
 -datetime 
 -smalldatetime
 	para almacenar valores de tipo fecha se permiten los siguientes separadores
-		- barra=/
-		- guion medio=-
-		- punto=.
+		- barra
+		- guion medio
+		- punto
 
-	formatos del set dateformar(mes y dia con 1 o 2 digitos, año con 2 o 4 digitos)
+	formatos del set dateformat(mes y dia con 1 o 2 digitos, año con 2 o 4 digitos)
 		- mdy = formato por defecto
 		- myd
 		- dmy
@@ -345,14 +347,16 @@ set dateformat dmy
 
 insert into fechayhora values('ana gomez', '222222', '12-01-1980');
 insert into fechayhora values('pedro gomez', '33333', '12-01-2000 10:10');
+insert into fechayhora values('pedro paz', '33333', '31-12-2020');
+insert into fechayhora values('juan gomez', '44444', '1-9-20');
 
 select * from fechayhora;
 
 /*
   *** 25 Ingresar algunos campos (insert into) ***
-  ingresar los datos para los campos titulo, autor y editorial
+-- ingresar los datos para los campos titulo, autor y editorial
 	insert into libros values('uno','richard','planeta');
-  ingresar los datos para los campos titulo y autor
+-- ingresar los datos para los campos titulo y autor
 	insert into libros(titulo, autor) values('el aleph','borges');
 
   los campos omitidos se guardaran como null
@@ -360,101 +364,123 @@ select * from fechayhora;
 
 /*
 	*** 26 Valores por defecto (default) ***
-
 	create table libros(
 		codigo int identity,
-		autor varchar not null default 'Desconocido',
+		autor varchar(30) not null default 'Desconocido',
 		cantidad tinyint default 0
 	);
 
 	si todos lo campos de la tabla permite valores predeterminados o nullos podemos crear el siguiente script
 	para agregar un registro rapidamente
-		insert into libros default vallues;
+		insert into libros default values;
+		select * from libros;
 */
 
 
 /*
 	*** 27 Columnas calculadas (operadores aritméticos y de concatenación) ***
-
-	podemos utilizar todos los operadores logicos, aritmeticos, relacionales o de comparacion y de concatenacion
-	para obtener el query deceado
+-- podemos utilizar todos los operadores logicos, aritmeticos, relacionales o de comparacion y de concatenacion
+   para obtener el query deceado
 */
-select titulo, autor,precio cantidad, precio*cantidad from libros;
-select titulo, autor,precio cantidad, (precio*cantidad) * 1.15 from libros;
+alter table libros
+add precio decimal(6,2);
+
+insert into libros values('juan',3,2);
+select autor, precio, cantidad, precio*cantidad from libros;
+select autor, precio, cantidad, (precio*cantidad) * 1.15 from libros;
 
 select * from libros;
 
 /*
 	*** 28 Alias ***
-	- as se el aliar y sirve para colocar un nombre a una columna calculada(puede tener hasta 128 caracteres)
+-- as es un alias y sirve para colocar un nombre a una columna calculada(puede tener hasta 128 caracteres)
 		select titulo, autor,precio cantidad, precio*cantidad as Total from libros;
 		select titulo, autor,precio cantidad, precio*cantidad as 'Precio Total' from libros;
 
 */
-		select titulo, autor,precio cantidad, precio*cantidad as Total from libros;
-
-
+		
 /*
 	*** 29 Funciones para el manejo de cadenas ***
 
-	- substring = (cadena, inicio y longitud) devuelve una parte de la cadena especificada
-		select SUBSTRING ('buenas tardes',8,6); = devuelve tardes
-	- str = (numero, longitud y cantidad de decimales)  convierte numeros a caracteres
-		select STR(123.456,7,3); = "123.456", si no loloco la longitud y cantidad de d solo me trae la parte entera
-	- stuff(rellena) = (cadena, inicio,cantidad, cadena2) ingresa la cadena 2 en la pocision indicada de la cadena
-		select stuff('abcde',3,2,'opqrs'); devuelve abpqrse me quita c y d y lo remplaza por la otra cadena 
-	- len = (cadena) retorna la longitud de la cadena
-	- char = (cadena) retorna el caracter en codigo ascii
-	- left = (cadena,longitud) retorna los caracters que se solicitan de izquierda a derecha
-		select left('buenos dias',8) = retorna buenos d
-	- right = (cadena, longitud) es igual que left solo que comienza de derecha a izquierda	
-	- lower = (cadena) retorna la cadena en minuscula
-		select LOWER('HOLA') = hola
-	- upper = (cadena) retorna la cadena en mayusculas
-		select UPPER('hola') = HOLA 
-	- ltrim (cadena)  = elimina los espacios de la izquierda de la cadena
-		select ltrim('   hola   ') = 'hola   '
-	- rtrim = (cadena) = elimina los espacios de la derecha de la cadena
-		select ltrim('   hola   ') = 'hola'
-	-replace = (cadena,cadenaremplazo,cadenareemplazar) retorna la cadena remplazando todas las ocurrencias encontradas
-		select replace('xxx.sqlserver.com','x','w') = www.sqlserver.com
-	- reverse = (cadena) invierte el orden de los caracteres
-	- patindex = (patron,index) devuelve la posicion donde se encontro la ocurrencia(patron)
-		select patindex('%luis%','jorge luis borges'); = 7 es la posicion donde inicia la ocurrencia 
+-- substring = (cadena, inicio(desde 0) y longitud(cuantos caracteres desde el inicio) devuelve una parte de la cadena especificada
+		select SUBSTRING ('buenas tardes',8,6); -- devuelve tardes
+
+-- str = (numero, longitud y cantidad de decimales)  convierte numeros a caracteres
+		-- 7 caracters de longitud incluyendo el punto
+		select STR(123.456,7,3); -- "123.456", si no coloco la longitud y cantidad solo me trae la parte entera
+
+-- stuff(rellena) = (cadena, inicio,cantidad(cuantos caracteres va reemplazar), cadena2) ingresa la cadena 2 en la pocision indicada de la cadena
+		select stuff('abcde',3,2,'opqrs'); --devuelve abopqrse me quita c y d y lo remplaza por la otra cadena 
+	
+-- len = (cadena) retorna la longitud de la cadena
+		select len('hola') as resultado;
+
+-- char = (cadena) retorna el caracter segun el codigo ascii
+		select char(64); -- devuelve @
+
+-- left = (cadena,longitud) retorna los caracters que se solicitan de izquierda a derecha
+		select left('buenos dias',8) -- retorna buenos d = los primeros 8 caracteres
+
+-- right = (cadena, longitud) es igual que left solo que comienza de derecha a izquierda
+		select right('buenos dias',4); -- devuelve los ultimos 4 caracteres dias
+
+-- lower = (cadena) retorna la cadena en minuscula
+		select LOWER('HOLA'); -- hola
+
+-- upper = (cadena) retorna la cadena en mayusculas
+		select UPPER('hola'); -- HOLA 
+
+-- ltrim (cadena)  = elimina los espacios de la izquierda de la cadena
+		select ltrim('   hola			buenos dias'); -- 
+
+-- rtrim = (cadena) = elimina los espacios de la derecha de la cadena
+		select ltrim('		hola		buenos dias'); -- 
+
+--replace = (cadena,cadenaremplazo,cadenareemplazar) retorna la cadena remplazando todas las ocurrencias encontradas
+		select replace('xxx.sqlserver.com','x','w') -- www.sqlserver.com
+
+-- reverse = (cadena) invierte el orden de los caracteres
+		select reverse('hola');
+
+-- patindex = (patron,index) devuelve la posicion donde se encontro la ocurrencia(patron)
+		select patindex('%luis%','jorge luis borges'); -- 7 es la posicion donde inicia la ocurrencia 
 			sino lo encuentra retorna 0
-	- charindex = (subcadena,cadena,inicio)
-	- replicate = (cadena,cantidad) repite la cadena la cantiad de veces que se lo indique 
-	- space = (cantidad) concatena espacios en blanco
+
+-- charindex = (subcadena,cadena,inicio)
+
+-- replicate = (cadena,cantidad) repite la cadena la cantidad de veces que se lo indique 
+		select replicate('x',55); 
+
+-- space = (cantidad) concatena espacios en blanco
 		select 'hola'+space(1)+'que tal';
-
-
-
 */
 
 /*
 	*** 32 Ordenar registros (order by) ***
 
-	ordenar el resultado de un select
-	select * from libros order by cantidad; ordenados por cantidad
-	select * from libros order by autor; ordenados alfabeticamente
-		los anteriores estan ordenados de forma ascendente si los quiero de forma desendente es:
+-- ordenar el resultado de un select
+		select * from libros order by cantidad; -- ordenados por cantidad
+		select * from libros order by autor; -- ordenados alfabeticamente
+
+-- los anteriores estan ordenados de forma ascendente si los quiero de forma desendente es con la palabra desc:
 		select * from libros order by cantidad desc; 
 		select * from libros order by autor desc; 
-	* se pueden ordenar por mas de un campo
+
+-- se pueden ordenar por mas de un campo
 		select * from libros order by precio,cantidad; 
-	* de forma ascendente y desendente independientemente
+
+-- de forma ascendente y desendente independientemente
 		select * from libros order by precio asc, cantidad desc; 
 */
 
-
 /*
 	*** 32 Operadores lógicos ( and - or - not) ***
-	estos se utilizan en la clausula where
+-- estos se utilizan en la clausula where
 	- and = y
 	- or  = y/o
 	- not = no, invierte el resultado
 	- parentesis = ()
-		el orden de priodirad es not, and y or
+		-- el orden de priodirad es not, and y or
 	select * from libros
 	where (titulo='El aleph') and (editorial='emece');
 
@@ -462,20 +488,17 @@ select * from libros;
 	where (titulo='El aleph') or (editorial='emece');
 
 	select * from libros
-	where not (editorial='ecem'); que la editorial no sea ecem
+	where not (editorial='ecem'); -- que la editorial no sea ecem
 */
 
 /*
 	*** 34 Otros operadores relacionales (is null) ***
-
-	es mejor is null que is not null
-
+-- es mejor is null que is not null por que asi solo se buscan los nulos que en muchos casos seran menos que los not null
 */
 
 /*
 	*** 35 Otros operadores relacionales (between) ***
-	
-	para intervalos de valores numericos
+-- para intervalos de valores numericos
 		select * from libros
 		where cantidad between 50000 and 200000;
 
@@ -485,12 +508,11 @@ select * from libros;
 
 /*
 	*** 36 Otros operadores relacionales (in) ***
+-- se utiliza para saber si el valor de un campo esta incluido en una lista de valores especificados 
+		select * from libros
+		where autor in('elmen','solem');
 
-	se utiliza para saber si el valor de un campo esta incluido en una lista de valores especificados 
-	select * from libros
-	where autor in('elmen','solem');
-
-	los valores que no coinciden con mi lista
+-- los valores que no coinciden con mi lista
 	select * from libros
 	where autor not in('elmen','solem');
 */
@@ -498,28 +520,31 @@ select * from libros;
 /*
 	*** 37 Búsqueda de patrones (like - not like) ***
 
-	trae lo que contenga so
+-- trae lo que contenga 'so'
 	select * from libros
 	where autor like'%so%';
 	
-	trae lo que comienza con so
+-- trae lo que comienza con so
 	select * from libros
 	where autor like'so%';
 
-	caracter comodin _
-	trae lo que contenga so
-	select * from libros
-	where autor like'%so_'; significa que puede haber cualquier letra en ese guion bajo
+-- caracter comodin guion bajo(_) trae lo que contenga despues de j
+	insert into libros values('jose',2,4);
 
-	trae lo que comience entra la letra s y la o
 	select * from libros
-	where autor like'[s-o]%';
+	where autor like'j_%'; --significa que puede haber cualquier letra en ese guion bajo
+
+-- trae lo que comience entre las letras D y j
+	insert into libros values('andrea',2,4);
+	select * from libros
+	where autor like'[D-j]%';
 
 	
-	select * from libros todo esepto la c
+-- hago un select que traiga todos los datos que comienzen con una letra del abcdario excepto la letra c
+	select * from libros 
 	where autor like'[a-bd-z]%';
 
-	si se buscan comodines se deben agregar dentro de corchetes
+-- si se buscan comodines se deben agregar dentro de corchetes
 	select * from libros
 	where autor like'%[%]%';
 */
@@ -528,63 +553,53 @@ select * from libros;
 	*** 38 Contar registros (count) ***
 
 	select count(*) from libros
-	where editorial like'em%';
-
+	where autor like 'j%';
 */
 
 /*
 	*** 39 Contar registros (count_big) ***
-
-	podemos contar los registros que tienen precio(sin tener en cuenta los que tienen valor nulo)
+-- podemos contar los registros que tienen precio(sin tener en cuenta los que tienen valor nulo)
 	select COUNT_BIG(precio) as cantidad from libros
 
-	contamos los editoriales sin repetir
-	select count_big(distinct editorial) from libros
+-- contamos cuantas filas del campo precio existe sin repetir y sin contar los campos nulos
+	select count_big(distinct precio) from libros
 */
-
 /*
 	***40 Funciones de agrupamiento (count - sum - min - max - avg) ***
+-- devuelven null si no se cumple la condicion 
+	select sum(cantidad) from libros;
 
-	devuelven null si no se cumple la condicion 
-	select sum(cantidad) form libros;
+-- devuelven el maximo de la cantidad
+	select max(cantidad) from libros;
 
-	devuelven la suma de la cantidad
-	select sum(cantidad) form libros;
+-- devuelven el minimo de la cantidad
+	select min(cantidad) from libros;
 
-	devuelven el maximo de la cantidad
-	select max(cantidad) form libros;
-
-	devuelven el minimo de la cantidad
-	select min(cantidad) form libros;
-
-	devuelven el promedio de la cantidad
-	select avg(cantidad) form libros;
+-- devuelven el promedio de la cantidad
+	select avg(cantidad) from libros; -- aqui se toman en cuenta incluso los valores en 0
 */
 
 /*
 	*** 41 Agrupar registros (group by) ***
+-- obtengo el autor y la cantidad que esta posee
+	select autor, COUNT(*) from libros group by autor; -- siempre se ordena por alguno de los campos en el select
 
-	obtengo la editorial y la cantidad que esta posee
-	select editorial, COUNT(*) from libros group by editorial; siempre se ordena por alguno de los campos en el select
+-- 
+	select autor, max(precio) as mayor, min(precio) as menor from libros group by autor;
 
-	select editorial, max(cantidad) as mayor, min(cantidad) as menor from libros group by editorial;
-
-	para devolver incluso valores null o en 0
-	select editorial, max(cantidad) as mayor, min(cantidad) as menor from libros group by all editorial;
-
-
+-- para devolver incluso valores null o en 0
+	select autor, max(precio) as mayor, min(precio) as menor from libros group by all autor;
 */
 
 /*
 	*** 42 Seleccionar grupos (having) ***
-
-	si quetemos saber la cantidad de libros agrupados por editorial pero considerando solo algunos grupos, por 
+-- si queremos saber la cantidad de libros agrupados por editorial pero considerando solo algunos grupos, por 
 	ejemplo los que devuelven un valor mayor a 2
 		select editorial, count(*) from libros
 		group by editorial
 		having count(*)>2
 
-	seleccionamos los not null pero que los grupos no tengan en su editorial "Planeta"
+-- seleccionamos los not null pero que los grupos no tengan en su editorial "Planeta"
 		select editorial, count(*) from libros
 		where precio is not null
 		group by editorial
@@ -593,44 +608,38 @@ select * from libros;
 
 /*
 	*** 46 Registros duplicados (distinct) ***
-
-	se especifica que los registros con ciertos datos duplicados sean obviados en el resultado
+-- se especifica que los registros con ciertos datos duplicados sean obviados en el resultado
 	select distinct editorial from libros
 
-	agregar el distinct o agruparlo por autor sera el mismo resultado,
+-- agregar el distinct o agruparlo por autor sera el mismo resultado,
 	select distinct editorial from libros
 
 	select autor from libros group by autor
 
-	esto tomara en cuenta los valores null
-	para omitirlo seria
+-- esto tomara en cuenta los valores null,para omitirlo seria
 	select distinct editorial from libros
 	where autor is not null
 */
 
-
 /*
 	*** 47 Cláusula top
-
-	se utiliza para obtener solo una cantidad limitada de registros, los primieros n registros de una consulta
+-- se utiliza para obtener solo una cantidad limitada de registros, los primieros n registros de una consulta
 	select top 2 * from libros;
 
-	con with ties si el ultimo autor(por que esta ordenado por autor) seleccionado se repite con el siguiente lo agregara de igual manera
-	select top 3 with ties titulo, autor from libros order by autor;
+-- con with ties si el ultimo autor(por que esta ordenado por autor) seleccionado se repite con el siguiente lo agregara de igual manera
+	select top 3 with ties titulo, autor from libros order by autor; -- verifica por titulo si el siguiente es el mismo lo agrega
 
-	por ejemplo para recuperar el 50% de registros se utilizaria percent 50
+-- por ejemplo para recuperar el 50% de registros se utilizaria percent 50
 	select top 50 percent * from libros order by autor;
-
 */
 
 /*
 	*** 48 Clave primaria compuesta ***
-
-	se definie un clave compuesta si ningun campo cumple la condicion para ser clave primaria(unico y que no se repita)
-	se deben usar 2 campos 
+-- se definie un clave compuesta si ningun campo cumple la condicion para ser clave primaria(unico y que no se repita)
+-- se deben usar 2 campos 
 
 if OBJECT_ID('vehiculos') is not null
-drop table vehiculos;
+	drop table vehiculos;
 
 create table vehiculos(
 	patente char(6) not null,
@@ -649,21 +658,20 @@ insert into vehiculos values('FGT458','a','9:00',null);
 insert into vehiculos values('AIC124','a','16:00',null);
 insert into vehiculos values('LOI587','a','18:05','19:55');
 
---si intentamos ingresar un registro con la clave primaria repetida dara un error
+-- si intentamos ingresar un registro con la clave primaria repetida dara un error
 insert into vehiculos values('LOI587','a','18:05','19:55');
 
---si uno de los campos es diferente si me dejara ingresarlo, al menos uno de los campos debe ser distinto
+-- si uno de los campos es diferente(patente) si me dejara ingresarlo, al menos uno de los campos debe ser distinto
 insert into vehiculos values('LOI588','a','18:05','19:55');
 
 select * from vehiculos;
-
 */
 
 /*
 	*** 49 Restricción(constraint) default ***
 
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
 	codigo int identity,
@@ -675,6 +683,7 @@ create table libros(
 );
 
 drop table libros;
+
 -- si quiero agregar la restriccion con la tabla creada
 create table libros(
 	codigo int identity,
@@ -691,7 +700,7 @@ alter table libros
 
 select * from libros;
 
---para ver las restricciones de la tabla
+-- para ver las restricciones de la tabla
 exec sp_helpconstraint libros;
 
 insert into libros(titulo,autor,editorial,precio) values('titulo del libro','autor del libro','editorial',20.2);
@@ -699,17 +708,16 @@ insert into libros(titulo,autor,editorial,precio) values('titulo del libro','aut
 select * from libros
 
 /*
-	*** 5 Restricción check ***
-
-	Especifica los valores que acepta un campo, evitando que se ingresen valores inapropiados
-	esto se verifica con el insert o el update, solo se permite un check por campo
+	*** 50 Restricción check ***
+-- Especifica los valores que acepta un campo, evitando que se ingresen valores inapropiados
+-- esto se verifica con el insert o el update, solo se permite un check por campo
 
 	alter table NOMBRETABLA
 	add constraint NOMBRECONSTRAINT
 	check CONDICION;
 
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
 	codigo int identity,
@@ -720,8 +728,9 @@ create table libros(
 	preciomay decimal(6,2)
 );
 
+-- agrego la restriccion check
 alter table libros
-add constraint CK_libros_precio_positivo
+add constraint CK_libros_precio_positivo -- CK_tabla_campo
 check(preciomin>=0 and preciomay>=0);
 
 -- da error por que el check solo permite que ambos valores sean enteros
@@ -736,77 +745,69 @@ check(editorial like'[A-Z][A-Z][0-9][0-9]');
 alter table libros
 add constraint CK_caracteres
 check(editorial in('lunes','martes','viernes'));
+-- no me deja crearlo si el anterior esta ya creado
 
 */
 /*
 	*** 51 Deshabilitar restricciones (with check - nocheck) ***
+-- para que la restriccion no aplique a los datos existentes solo a los nuevos
+alter table libros
+with nocheck
+add constraint CK_libros_precio
+check (precio>=0);
 
-	para que la restriccion no aplique a los datos existentes solo a los nuevos
-	alter table libros
-	with nocheck
-	add constraint CK_libros_precio
-	check (precio>=0);
+-- para desabilitar momentanemente el check
+alter table libros
+nocheck
+constraint CK_libros_precio;
 
-	para desabilitar momentanemente el check
-	alter table libros
-	nocheck
-	constraint CK_libros_precio;
+-- para habilitarlo de nuevo
+alter table libros
+check
+constraint CK_caracteres;
 
-	para habilitarlo de nuevo
-	alter table libros
-	check
-	constraint CK_caracteres;
+-- para habilitar todos las restricciones
+alter table libros
+check
+constraint all;
 
-	para habilitar todos las restricciones
-	alter table libros
-	check
-	constraint all;
-
-	exec sp_helpconstraint libros;
-
+exec sp_helpconstraint libros;
 */
 
 /*
 	*** 52 Restricción primary key ***
-
-	agregar una restriccion pk desde un alter
+-- agregar una restriccion pk desde un alter
 alter table libros
-add constraint PK_libros_codigo
+add constraint PK_libros_codigo -- PK_tabla_campo
 primary key(codigo);
-
-
 */
 
 /*
 	*** 53 Restricción unique ***
-
-	esta restriccion especifica que 2 registros no puedan tener el mismo valor en un campo, se permiten valores nulos
-	y pueden existir varias restricciones de estas en una tabla siempre y cuando no sean llaves primarias 
+-- esta restriccion especifica que 2 registros no puedan tener el mismo valor en un campo, se permiten valores nulos
+-- y pueden existir varias restricciones de estas en una tabla siempre y cuando no sean llaves primarias 
 	alter table alumnos
-	add constraint UQ_alumnos_documento
+	add constraint UQ_alumnos_documento -- UQ_tabla_columna
 	unique(documento);
 */
 
 /*
 	*** 55 Eliminar restricciones (alter table - drop) ***
+-- para eliminar una restriccion 
+alter table libros
+drop CK_caracteres --nombre de la restriccion
 
-	--para eliminar una restriccion 
-	alter table libros
-	drop CK_caracteres --nombre de la restriccio
+-- para eliminar varias restricciones 
+alter table libros
+drop CK_caracteres, PK_libros_codigo --borrar varios
 
-	--para eliminar varias restricciones 
-	alter table libros
-	drop CK_caracteres, PK_libros_codigo --borrar varios
-
-	exec sp_helpconstraint libros;
-
+exec sp_helpconstraint libros;
 */
 
 /*
 	*** 56 Crear y asociar reglas (create rule - sp_bindrule) ***
-
-	-- las reglas especifican los valores que se pueden ingresar en un campo, la regla se asocia a un campo de la 
-		tabla, el campo solo puede tener una regla
+-- las reglas especifican los valores que se pueden ingresar en un campo, la regla se asocia a un campo de la 
+-- tabla, el campo solo puede tener una regla
 
 -- sintaxis
 create rule RG_sueldo_intervalo --nombre de la regla
@@ -822,15 +823,14 @@ go
 
 -- las reglas se borran como las tablas
 if OBJECT_ID('RG_documento') is not null
-drop rule RG_documento;
+	drop rule RG_documento;
 
 -- puedo crear una regla general y luego solo agregarla a cada tabla que le corresponda
 */
 
 /*
 	*** 57 Eliminar y desasociar reglas (sp_unbindrule - drop rule) ***
-
-	-- para desacociarla
+-- para desacociarla
 exec sp_unbindrule 'empleados.sueldo'; --tabla.campo
 
 -- luego ya podemos borrarla 
@@ -839,12 +839,10 @@ drop rule RG_documento;
 
 /*
 	 *** 59 Desasociar y eliminar valores predeterminados ***
-
-	-- los valores predeterminados se asocias a uno o mas campos
-	
+-- los valores predeterminados se asocias a uno o mas campos
 -- se crea el vp
 go
-create default VP_datodesconocido --vp = valor predeterminado
+create default VP_datodesconocido -- vp = valor predeterminado
 as 'desconocido'
 
 go
@@ -858,43 +856,40 @@ exec sp_bindefault VP_datodesconocido, 'tabla.campo','table.campo2';
 exec sp_bindefault VP_datodesconocido, 'tabla.campo','tabla2.campo';
 
 -- estas restricciones estan a nivel de tabla al elimniar la tabla se elimina el VP, requieren del campo go
-
 */
 
 /*
 	*** 60 Desasociar y eliminar valores predeterminados ***
-
 -- primero se debe desasociar
 exec sp_unbindefault 'table.campo';
 
 -- luego lo eliminasmos
 drop default VP_cero;
-
 */
 
 /*
 	*** 66 Trabajar con varias tablas - Combinación interna (inner join)***
-
-	if OBJECT_ID('libros') is not null
-drop table libros;
+--
+if OBJECT_ID('libros') is not null
+	drop table libros;
 
 if OBJECT_ID('editoriales') is not null
 drop table editoriales;
 
 create table libros(
-codigo int identity,
-titulo varchar(40) not null,
-autor varchar(30) not null default ' Desconocido',
-codigoeditorial tinyint not null,
-precio decimal(5,2),
-primary key (codigo)
+	codigo int identity,
+	titulo varchar(40) not null,
+	autor varchar(30) not null default ' Desconocido',
+	codigoeditorial tinyint not null,
+	precio decimal(5,2),
+	primary key (codigo)
 );
 
 create table editoriales(
-codigo tinyint identity,
-nombre varchar(20) not null,
-direccion varchar(40),
-primary key(codigo)
+	codigo tinyint identity,
+	nombre varchar(20) not null,
+	direccion varchar(40),
+	primary key(codigo)
 );
 
 go 
@@ -902,16 +897,18 @@ go
 insert into editoriales values('Planeta','Colon 1234');
 insert into editoriales values('Emece','Dean Funez 32');
 insert into editoriales values('Siglo XXI','Rivadania 333');
+insert into editoriales values('Siglo XX','Rivadania 444');
 
 insert into libros values('El aleph','Borges',2,20);
 insert into libros values('Martin Fierro','Jose Hernandez',1,30);
 insert into libros values('Aprenda PHP','Mario Molina',3,50);
 insert into libros values('Java en 10 minutos',default,3,45);
+insert into libros values('Java',default,5,45);
 
 select * from libros;
 select * from editoriales;
 
---join es el de traer los resultados de 2 tablas
+-- join es el de traer los resultados de 2 tablas
 select titulo, autor, nombre, precio from libros as l
 join editoriales as e
 on l.codigoeditorial=e.codigo;
@@ -931,26 +928,22 @@ order by titulo;
 
 /*
 	*** 67 Trabajar con varias tablas - Combinación externa izquierda (left join) ***
-
-	-- hay 3 tipos de combinaciones externas
+-- hay 3 tipos de combinaciones externas
 		- left join
 		- right join 
 		- full join 
-	-- si un valor de la tabla izquiera no se encuentra coincidencia con la tabla de la derecha, el registro 
-	   muestra los campos de esta como null
-	   el solo se encargara de traer los registros
+-- con left join si un valor de la tabla izquiera no se encuentra coincidencia con la tabla de la derecha, el registro 
+-- muestra los campos de esta como null, el solo se encargara de traer los registros
 
-	   
-	--que me traiga todas las editoriales incluso las que no tienen un libro asociado
-	select l.titulo,e.nombre from editoriales as e -- tabla izquierda, con esta le digo que quiero todos los datos aunque no tenga libros
-	left join libros as l on codigoeditorial = e.codigo; -- left join tabla derecha
+--que me traiga todas las editoriales incluso las que no tienen un libro asociado
+select l.titulo,e.nombre from editoriales as e -- tabla izquierda, con esta le digo que quiero todos los datos aunque no tenga libros
+left join libros as l on codigoeditorial = e.codigo; -- left join tabla derecha
 */
 
 /*
 	*** 68 Trabajar con varias tablas - Combinación externa derecha (right join) ***
-
-	-- en este caso opera del mismo modo que el left join solo que la tabla derecha(segunda tabla) es la que localiza 
-	   los registros de la tabla izquierda(primera tabla)
+-- en este caso opera del mismo modo que el left join solo que la tabla derecha(segunda tabla) es la que localiza 
+-- los registros de la tabla izquierda(primera tabla)
 
 -- que me traiga todas las editoriales y los libros aunque estos ultimos no esten asociados a una editorial
 select titulo,nombre from libros as l
@@ -960,21 +953,18 @@ on e.codigo = codigoeditorial;
 
 /*
 	*** 69 Trabajar con varias tablas - Combinación externa completa (full join) ***
-	 
-	 -- retorna todos los registros de ambas tablas, si los datos la tabla de la izquierda no coincide con la tabla 
-	    de la derecha los campos de esta aparecen como null y caso contrario con la tabla de la derecha
+-- retorna todos los registros de ambas tablas, si los datos la tabla de la izquierda no coincide con la tabla 
+-- de la derecha los campos de esta aparecen como null y caso contrario con la tabla de la derecha
 -- muestra todo incluyendo los libros que no tienen editoriales y editoriales que no tienen libros
 select titulo,nombre from editoriales as e
 full join libros as l on codigoeditorial=e.codigo;
-
 */
 
 /*
 	*** 71 Trabajar con varias tablas - Autocombinación ***
-
-	-- combinar una tabla con sigo misma
-	if OBJECT_ID('comidas') is not null
-drop table comidas;
+-- combinar una tabla con sigo misma
+if OBJECT_ID('comidas') is not null
+	drop table comidas;
 
 create table comidas(
 	codigo int identity,
@@ -999,17 +989,15 @@ select * from comidas;
 select c1.nombre as 'Plato Principal', c2.nombre as postre, (c1.precio+c2.precio) as total
 from comidas as c1 cross join comidas as c2;
 
-
---devuelve la combinacion de plato principal y postre respetando que sea uno y uno
+--devuelve la combinacion de plato principal y postre respetando que sea un plato con un postre
 select c1.nombre as 'Plato Principal', c2.nombre as postre, (c1.precio+c2.precio) as total
 from comidas as c1 cross join comidas as c2 where c1.rubro='plato' and c2.rubro='postre';
 */
 
 /*
 	*** 75 Restricciones foreign key ***
-
-	-- un campo que no es una clave primaria pero que sirve para enlazar sus valores con otra tabla en la cual es 
-	   clave primari se denomina clave foranea
+-- un campo que no es una clave primaria pero que sirve para enlazar sus valores con otra tabla en la cual es 
+-- clave primaria se denomina clave foranea
 
 -- sintaxis para agregar una FK
 alter table libros
@@ -1022,8 +1010,7 @@ exec sp_helpconstraint libros;
 
 /*
 	*** 81 Agregar y eliminar campos ( alter table - add - drop) ***
-
---con alter table modificamos la estructura de la tabla
+-- con alter table modificamos la estructura de la tabla
 -- agregar una columna o campo
 alter table libros
 add referencias varchar(30) not null default 'algo';
@@ -1043,14 +1030,14 @@ exec sp_columns libros;
 
 /*
 	*** 84 Campos calculados ***
-
-	create table empleados(
-documento char(9),
-nombre varchar(10),
-domicilio varchar(30),
-sueldobasico decimal(6,2),
-cantidadhijos tinyint default 0,
-sueldototal as sueldobasico + (cantidadhijos*100)
+--
+create table empleados(
+	documento char(9),
+	nombre varchar(10),
+	domicilio varchar(30),
+	sueldobasico decimal(6,2),
+	cantidadhijos tinyint default 0,
+	sueldototal as sueldobasico + (cantidadhijos*100)
 );
 
 insert into empleados values('2222','juan p','colon',300,2);
@@ -1058,12 +1045,11 @@ insert into empleados values('3333','ana p','sucre',500,0);
 
 select * from empleados;
 
--- o
+-- o agregando el campo despues a traves de un alter table
 
 alter table empleados
 add sueldototal as sueldo+(cantidadhijos*100);
 */
-
 
 /*
 	*** 89 Subconsultas como expresión ***
@@ -1078,9 +1064,9 @@ from libros where titulo='El aleph';
 select titulo, autor, precio from libros
 where precio=(select max(precio) from libros);
 */
+select * from libros
 /*
 	*** 93 Subconsulta - Exists y Not Exists ***
-
 -- se puden utilizar en las subconsultas por ejemplo para saber si el resultado de un query tiene resultado
 -- la subconsulta retorna true si encuentra registros, caso contrario retornara false
 select cliente, numero from facturas as f
@@ -1090,10 +1076,9 @@ where not exists
 
 /*
 	*** 98 Crear tabla a partir de otra (select - into) ***
-
-	
+.. 
 if object_id('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
 	codigo int identity,
@@ -1130,7 +1115,7 @@ select * from ofertas4;
 
 /*
 	*** 99 Comando go ***
-	--es un signo(comandO) para indicar la finalizacion de un lote de sentencias sql 
+-- es un signo(comando) para indicar la finalizacion de un lote de sentencias sql 
 
 select * from libros;
 go
@@ -1142,7 +1127,7 @@ exec sp_helpconstraint libros;
 /*
 	*** 100 vistas ***
 -- es una alternativa para mostrar datos de varias tablas, es como una tabla virtual que almacena una consulta
-	puedo trabajar las vistas como cualquier otra tabla
+-- puedo trabajar las vistas como cualquier otra tabla
 -- creo una vista que me guarde 2 campos de 2 tablas unidas por un join
 create view vistalibros as
 select l.titulo as 'titulo libro', e.nombre as 'nombre editorial' 
@@ -1168,13 +1153,14 @@ drop view vistalibros;
 
 /*
 	*** 106 Lenguaje de control de flujo (case) ***
+-- 
 select codigo,titulo,precio, resultado = case codigo
 when 1 then 'uno'
 when 2 then 'dos'
 end
 from libros;
 
---otra forma
+-- otra forma
 select codigo,titulo,precio, resultado = 
 case 
 when precio>45 then 'caro'
@@ -1205,12 +1191,12 @@ else
 
 -- si hay un libro de borges se le cambia el precio a 25
 if exists(select * from libros where autor='borges')
-begin--encierra un bloque de sentencias para que sean tratados como una unidad
+begin --encierra un bloque de sentencias para que sean tratados como una unidad
 	update libros set precio = 25 where autor = 'borges';
 	select 'libros actualizados';
 end
 else
-select 'no hay registros actualizados';
+	select 'no hay registros actualizados';
 
 --existe una funcion incoorporada apartir de sql 2012 llamada iif, es un if abrebiado
 select titulo, costo=iif(precio>38,'barato','caro') from libros;
@@ -1218,7 +1204,6 @@ select titulo, costo=iif(precio>38,'barato','caro') from libros;
 
 /*
 	*** 108 Variables de usuario ***
-
 -- son variables locales definidas y utilizadas donde se declaran
 declare @variable varchar(20), @edad int;-- sino se le asigna valor sera null
 
@@ -1231,13 +1216,11 @@ select @variable = autor from libros where titulo = 'El aleph';
 -- ver el contenido de la variable
 select @edad;
 select @variable;
-
-
 */
 
 /*
 	*** 109 Procedimientos almacenados (crear - ejecutar) ***
--- creat el pa, se puede usar procedure o proc, esta debe ser la primera sentencia en un lote de comandos
+-- crear el PA, se puede usar procedure o proc, esta debe ser la primera sentencia en un lote de comandos
 create procedure pa_libros_limite_stock
 as
 select * from libros
@@ -1250,16 +1233,17 @@ exec pa_libros_limite_stock;
 create proc pa_crear_libros
 as
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
-codigo int identity,
-titulo varchar(40),
-autor varchar(30),
-editorial varchar(20),
-precio decimal(5,2),
-primary key(codigo)
+	codigo int identity,
+	titulo varchar(40),
+	autor varchar(30),
+	editorial varchar(20),
+	precio decimal(5,2),
+	primary key(codigo)
 );
+
 insert into libros values('uno','richard','planeta',15);
 insert into libros values('el alepho','borges','emece',25);
 insert into libros values('matematicas','paenza','nuevo siglo',18);
@@ -1287,16 +1271,16 @@ go
 create proc pa_libros_autor
 as
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 
 create table libros(
-codigo int identity,
-titulo varchar(40),
-autor varchar(30),
-editorial varchar(20),
-precio decimal(5,2),
-cantidad smallint,
-primary key(codigo)
+	codigo int identity,
+	titulo varchar(40),
+	autor varchar(30),
+	editorial varchar(20),
+	precio decimal(5,2),
+	cantidad smallint,
+	primary key(codigo)
 )
 
 insert into libros values('uno','richard','planeta',15,5);
@@ -1353,12 +1337,12 @@ exec pa_libros_autor @editorial='paido';
 	*** 112 Procedimientos almacenados (parámetros de salida) ***
 --
 if OBJECT_ID('pa_promedio') is not null
-drop proc pa_promedio;
+	drop proc pa_promedio;
 go
 create procedure pa_promedio
 	@n1 decimal(4,2),
 	@n2 decimal(4,2),
-	@resultado decimal(4,2) output
+	@resultado decimal(4,2) output -- por que es el parametro de salida
 as
 	select @resultado = (@n1+@n2)/2;
 
@@ -1367,7 +1351,7 @@ go -- si quiero ejecturar todo en un solo lote
 -- para recibir el parametro 
 declare @variable decimal(4,2) --creo la variable
 exec pa_promedio 5,6, @variable output
-select @variable;
+select @variable as promedio;
 
 -- si tengo varios parametros de salida los puedo identificar
 -- para recibir el parametro 
@@ -1381,12 +1365,10 @@ exec sp_help pa_promedio;
 
 /*
 	*** 113 Procedimientos almacenados (return) ***
-	-- con return puedo salir del procedimiento almacenado en el momento que se lo indique 
+-- con return puedo salir del procedimiento almacenado en el momento que se lo indique 
 if OBJECT_ID('pa_autor') is not null
-drop proc pa_autor;
-
+	drop proc pa_autor;
 go
-
 create procedure pa_autor
 	@autor varchar(30) = null -- se recomienda definirlos en null para realizar la validacion
 as
@@ -1425,7 +1407,7 @@ select 'ingreso realizado=1' = @retorno; -- retorna 1
 --
 declare @retorno int
 exec @retorno = pa_libros_ingreso 
-select 'ingreso realizado = 1' = @retorno; -- retorna 0
+select 'ingreso realizado = 1' = @retorno; -- retorna 0 por que titulo y autor van nulos
 
 go
 
@@ -1435,7 +1417,6 @@ exec @retorno = pa_libros_ingreso 'el gato con botas','anonimo'
 if @retorno=1 select 'registro ingresado'
 else select 'registro no ingresado por que faltan datos';
 select * from libros;
-
 */
 
 /*
@@ -1453,10 +1434,10 @@ alter procedure pa_libros_ingreso
 	@autor varchar(30)=null
 as
 if @autor is null
-begin
-	select 'debe indicar un autor'
-	return
-end
+	begin
+		select 'debe indicar un autor'
+		return
+	end
 else
 	select titulo,editorial,precio
 	from libros
@@ -1471,19 +1452,19 @@ exec pa_libros_ingreso 'Borges';
 -- insertar datos de una tabla apartir del resultado de un PA
 -- voy a necesitar una tabla llamada ofertas con los campos titulo, autor,editorial y precion
 create table ofertas(
-codigo int identity,
-titulo varchar(40),
-autor varchar(30),
-precio decimal(5,2),
-primary key(codigo)
+	codigo int identity,
+	titulo varchar(40),
+	autor varchar(30),
+	precio decimal(5,2),
+	primary key(codigo)
 )
 
 -- luego creo el procedimiento para copiar los datos de libros a ofertas
 create proc pa_ofertas
 as
-select titulo,autor,precio
-from libros
-where precio<50;
+	select titulo,autor,precio
+	from libros
+	where precio<50;
 
 -- hago mi insert
 insert into ofertas exec pa_ofertas;
@@ -1494,7 +1475,7 @@ select * from ofertas;
 
 /*
 	*** 118 Procedimientos almacenados (anidados) ***
---creamos un procedimiento que reciba 2 numeros enteros y nos retorne el producto de los mismos
+-- creamos un procedimiento que reciba 2 numeros enteros y nos retorne el producto de los mismos
 create proc pa_multiplicar
 	@numero1 int,
 	@numero2 int,
@@ -1506,9 +1487,12 @@ as
 declare @x int
 exec pa_multiplicar 3,9, @x output
 select @x as '3*9'
+
 --si solo llamo al segundo declaro la variable x aqui
+declare @x int
 exec pa_multiplicar 50,8, @x output
 select @x as '50*8';
+
 -- cramos un PA q retorne el factorial de un numero, este PA llamara al PA pa_multiplicar
 create proc pa_factorial
 	@numero int
@@ -1537,32 +1521,32 @@ exec pa_factorial 3;
 -- debe ser la primera sentencia creada en un bloque de comandos sql y solo se puede aplicar a una tabla
 
 	*** 126 Disparador de inserción (insert trigger) ***
-
 --
 if OBJECT_ID('ventas') is not null
-drop table ventas;
+	drop table ventas;
 if OBJECT_ID('libros') is not null
-drop table libros;
+	drop table libros;
 --
 create table libros(
-codigo int identity,
-titulo varchar(40),
-autor varchar(30),
-precio decimal(5,2),
-stock int,
-constraint PK_libros primary key(codigo)
---primary key(codigo)
+	codigo int identity,
+	titulo varchar(40),
+	autor varchar(30),
+	precio decimal(5,2),
+	stock int,
+	constraint PK_libros primary key(codigo)
+	--constraint FK_libros_codigoeditorial foreign key(codigoeditorial) references editoriales(codigo)
+	--primary key(codigo)
 )
 
 create table ventas(
-numero int identity,
-fecha datetime,
-codigolibro int not null,
-precio decimal(5,2),
-cantidad int,
-constraint PK_ventas primary key(numero),
-constraint FK_ventas_codigolibro foreign key (codigolibro) references libros(codigo)
---primary key(codigo)
+	numero int identity,
+	fecha datetime,
+	codigolibro int not null,
+	precio decimal(5,2),
+	cantidad int,
+	constraint PK_ventas primary key(numero),
+	constraint FK_ventas_codigolibro foreign key (codigolibro) references libros(codigo)
+	--primary key(codigo)
 )
 
 go
@@ -1582,11 +1566,11 @@ select * from ventas;
 -- actualiza el campo stock de la tabla libros
 
 create trigger DIS_ventas_insertar
-on ventas --tabla donde se va acticar el trigger
-for insert -- evento que lo va disparar
+	on ventas --tabla donde se va acticar el trigger
+	for insert -- evento que lo va disparar
 as
 	declare @stock int
-	select @stock = stock from libros
+	select @stock=stock from libros
 	join inserted on inserted.codigolibro=libros.codigo
 	where libros.codigo=inserted.codigolibro
 	
@@ -1598,7 +1582,7 @@ as
 	else
 	begin
 		raiserror('hay menos libros en stock de los solicitados para la venta',16,1) --mensaje de error personalizado
-		rollback transaction
+		rollback transaction -- desago la transaccion
 	end
 
 --inserted es una tabla virtual que tiene una copia de todos los registros insertados en este caso la tabla ventas
@@ -1606,7 +1590,7 @@ as
 select * from libros;
 select * from ventas;
 
--- inseto en la tabla ventas para corroborrar el trigger
+-- inserto en la tabla ventas para corroborrar el trigger
 --							codigo de la tabla libros,precio,cantidad
 insert into ventas values('2018/04/04',1,15,300);
 */
@@ -1627,7 +1611,7 @@ create trigger DIS_ventas_borrar
 	for delete
 as
 	-- en este caso la tabla virtual deleted funciona como una copia de la tabla ventas
-	update libros set stock= libros.stock+deleted.cantidad
+	update libros set stock= libros.stock+deleted.cantidad --(los libros que quite de editoriales vuelve a la tabla libros)
 	from libros
 	join deleted
 	on deleted.codigolibro=libros.codigo;
@@ -1647,12 +1631,13 @@ create trigger DIS_libros_borrar
 as
 	if(select count(*) from deleted) > 1
 	begin
-		raiserror('no puede eliminar mas de un registro',16,1)
+		raiserror('no puede eliminar mas de un registro',16,1) -- 16 letras de error en rojo
 		rollback transaction -- con esto desacemos el borrado de los datos
 	end;
 
 go
 
+select * from libros;
 -- pruebo el trigger
 delete from libros where autor = 'mario';-- no lo puedo eliminar por que ay dos autores mario
 */
@@ -1703,18 +1688,18 @@ create trigger DIS_libros_actualizar
 	for update
 as
 	if(update(titulo) or update(autor) and not update(precio))
-	begin
-		select (d.titulo+' - '+d.autor) as 'registro anterior',
-		(i.titulo+' - '+i.autor) as 'registro actualizado'
-		from deleted as d
-		join inserted as i
-		on d.codigo=i.codigo
-	end
+		begin
+			select (d.titulo+' - '+d.autor) as 'registro anterior',
+			(i.titulo+' - '+i.autor) as 'registro actualizado'
+			from deleted as d
+			join inserted as i
+			on d.codigo=i.codigo
+		end
 	else
-	begin
-		raiserror('el precio no puede modificarse. la actualizacion no se realizó',10,1)
-		rollback transaction
-	end;
+		begin
+			raiserror('el precio no puede modificarse. la actualizacion no se realizó',10,1)
+			rollback transaction
+		end;
 go
 select * from libros;
 
@@ -1728,23 +1713,23 @@ update libros set precio =1 where codigo = 1;
 
 /*
 	*** 128 Disparadores (varios eventos) ***
---para el ejemplo creo 2 tablas
+-- para el ejemplo creo 2 tablas
 create table socios(
-documento char(9) not null,
-nombre varchar(30),
-domicilio varchar(30),
-constraint PK_socios primary key(documento)
+	documento char(9) not null,
+	nombre varchar(30),
+	domicilio varchar(30),
+	constraint PK_socios primary key(documento)
 );
 
 create table inscriptos(
-numero int identity,
-documento char(9) not null,
-deporte varchar(30),
-matricula char(1),
-constraint FK_inscriptos_documento foreign key(documento)
-references socios(documento),
-constraint CK_inscriptos_matricula check(matricula in('s','n')),
-constraint PK_inscriptos primary key(documento,deporte)
+	numero int identity,
+	documento char(9) not null,
+	deporte varchar(30),
+	matricula char(1),
+	constraint FK_inscriptos_documento foreign key(documento)
+	references socios(documento),
+	constraint CK_inscriptos_matricula check(matricula in('s','n')),
+	constraint PK_inscriptos primary key(documento,deporte)
 );
 
 create table morosos(
@@ -1779,10 +1764,10 @@ create trigger DIS_inscriptos_insert_delete
 	for insert,delete
 as
 	if exists (select * from inserted join morosos on morosos.documento=inserted.documento)
-	begin
-		raiserror('el socio debe matriculas, no puede borrarse su inscripcion',16,1)
-		rollback transaction
-	end
+		begin
+			raiserror('el socio debe matriculas, no puede borrarse su inscripcion',16,1)
+			rollback transaction
+		end
 	else
 		if(select matricula from inserted) = 'n'
 			insert into morosos select documento from inserted;
@@ -1897,7 +1882,7 @@ go
 create trigger DIS_empl_clie_actualizar
   on vista_empleados_clientes
   instead of update
-  as
+ as
    declare @condicion varchar(10)
    set @condicion = (select condicion from inserted)
    if update(documento)
